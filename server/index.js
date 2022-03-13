@@ -15,7 +15,7 @@ app.use(cors(corsOptions))
 const http = require('http').createServer(app);
 
 //Database connection
-const mongoDB = "mongodb+srv://surveySystem:grp54project@cluster0.rfinc.mongodb.net/survey-system?retryWrites=true&w=majority";
+const mongoDB = process.env.mongoURI;
 mongoose.connect(mongoDB,).then(() => console.log('database connected')).catch(err => console.log(err))
 
 app.use(express.static(__dirname));
