@@ -1,29 +1,44 @@
-
-
-import Navbar from './components/Navbar'
-import Home from './pages/home/Home';
+import Home  from './pages/home/Home';
 import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-function App() {
-  return (
-    <div className="App">
+import {BasicForm} from './pages/signup/BasicForm'
+import { useAuthContext } from './hooks/useAuthContext';
+import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom'
+import Navbar from './components/Navbar';
 
-      <BrowserRouter >
+function App() {
+  const {user,authIsReady} = useAuthContext();
+  return (
+    <>
+      {authIsReady && 
+    
+    <div className="App">
+      <BrowserRouter>
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Home />
+            {user && <Home />}
+            {!user && <Redirect to ="/login" />}
           </Route>
           <Route  path="/login">
-            <Login />
+          {user && <Redirect to ="/"/>}
+          {!user && <Login />}
+          
           </Route>
           <Route  path="/signup">
-            <Signup />
+          {user && <Redirect to ="/"/>}
+          {!user &&  <Signup />}
+           
           </Route>
+          <Route path ="/basicform">
+              <BasicForm />
+          </Route>
+          
         </Switch>
       </BrowserRouter>
+     
     </div>
+      }</>
   );
 }
 

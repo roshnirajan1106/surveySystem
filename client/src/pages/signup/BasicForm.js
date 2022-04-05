@@ -1,18 +1,27 @@
 import React from 'react'
-import styles from './Login.module.css'
+import styles from './Signup.module.css'
 import { useState } from 'react'
-import {useLogin} from '../../hooks/useLogin'
-const Login = () => {
+
+export const BasicForm = () => {
   const[password,setPassword] = useState('');
   const[email,setEmail] = useState('');
-  const {login,error,isPending} = useLogin();
+  const [displayName,setDisplayName] = useState('');
   const handleSubmit =(e) =>{
       e.preventDefault();
-      login(email,password)
+
   }
+
   return (
-    <form onSubmit={handleSubmit} className={styles['login-form']}>
-    <h2>Login</h2>
+    <form onSubmit={handleSubmit} className={styles['signup-form']}>
+    <h2>Please Fill out this Basic form</h2>
+    <label>
+          <span>display Name:</span>
+          <input type="text" 
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+            value={displayName}
+          />
+        </label>
         <label>
           <span>email:</span>
           <input type="email" 
@@ -30,12 +39,8 @@ const Login = () => {
             
           />
         </label>
-        {error && <p>{error}</p>}
-        {isPending && <button disabled className='btn'>Logining..</button>}
-        {!isPending && <button className='btn'>Login</button> }
-
+        
     </form>
   )
 }
 
-export default Login
