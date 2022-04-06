@@ -7,7 +7,9 @@ import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom'
 import Navbar from './components/Navbar';
 
 function App() {
-  const {user,authIsReady} = useAuthContext();
+  const {isPending,user,authIsReady} = useAuthContext();
+  console.log("isPending",isPending);
+
   return (
     <>
       {authIsReady && 
@@ -17,21 +19,28 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            {user && <Home />}
+            {user  && <Home />}
+            {/* {user  && !isPending && <Redirect to="/BasicForm" />} */}
             {!user && <Redirect to ="/login" />}
           </Route>
           <Route  path="/login">
-          {user && <Redirect to ="/"/>}
+          {user && isPending &&  <Redirect to ="/"/>}
+          {user && !isPending && <Redirect to = "/basicform" />}
           {!user && <Login />}
           
           </Route>
           <Route  path="/signup">
-          {user && <Redirect to ="/"/>}
+          {user  && !isPending && <Redirect to ="/basicform"/>}
+          {user  && isPending && <Redirect to ="/" />}
           {!user &&  <Signup />}
            
           </Route>
           <Route path ="/basicform">
-              <BasicForm />
+          {!user && <Redirect to ="login" />}
+          {(user && !isPending) && <BasicForm />}
+          {user  && isPending &&  <Redirect to="/" />}
+          
+              
           </Route>
           
         </Switch>

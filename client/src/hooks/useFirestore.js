@@ -26,6 +26,7 @@ export const useFirestore = (collection) => {
     //success, pending, error and the document
     const[response,dispatch] = useReducer(firestoreReducer,initialState)
     const [isCancelled,setIsCancelled] = useState(false);
+    
     //collection ref
     const ref = projectFirestore.collection(collection)
     const dispatchIfNotCancelled = (action) =>{
@@ -38,6 +39,7 @@ export const useFirestore = (collection) => {
             
             const addedDocument = await ref.add({...doc,createdAt});
             dispatchIfNotCancelled({type:'ADDED_DOCUMENT',payload:addedDocument})
+            
         }catch(err){
             dispatchIfNotCancelled({type:'ERROR',payload:err.message})
         }

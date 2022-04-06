@@ -5,11 +5,12 @@ import TransactionForm from './TransactionForm'
 import {useCollection} from '../../hooks/useCollection'
 import {TransactionList} from './TransactionList'
 const Home = () => {
-  const {user} = useAuthContext()
+  const {user,setInfo} = useAuthContext()
   const{documents,error} = useCollection(
     'survey'
   ,["uid","==",user.uid]);
-  console.log(documents);
+
+  
   return (
     <div className={styles.container}>
       <div className={styles.container}>

@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './Signup.module.css'
 import { useState } from 'react'
 import useSignup from '../../hooks/useSignup'
+import { useHistory } from 'react-router-dom';
 const Signup = () => {
   const[password,setPassword] = useState('');
+  const history = useHistory();
   const[email,setEmail] = useState('');
   const [displayName,setDisplayName] = useState('');
-  const {error,isPending,signup} = useSignup();
+  const {error,isPending,signup,success} = useSignup();
   const handleSubmit =(e) =>{
       e.preventDefault();
       signup(email,password,displayName)
 
   }
-
+ 
   return (
     <form onSubmit={handleSubmit} className={styles['signup-form']}>
     <h2>Sign up</h2>

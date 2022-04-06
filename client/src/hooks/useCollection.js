@@ -20,6 +20,7 @@ export const useCollection = (collection,_query) => {
       
       // update state
       setDocuments(results)
+      console.log(results);
       setError(null)
     }, error => {
       console.log(error)

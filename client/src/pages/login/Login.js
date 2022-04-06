@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './Login.module.css'
 import { useState } from 'react'
 import {useLogin} from '../../hooks/useLogin'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import {useCollection} from '../../hooks/useCollection'
+
 const Login = () => {
   const[password,setPassword] = useState('');
   const[email,setEmail] = useState('');
   const {login,error,isPending} = useLogin();
+  const{user,setInfo} = useAuthContext();
+
+  
   const handleSubmit =(e) =>{
       e.preventDefault();
       login(email,password)
+      //setInfo({type:'addinfo',payload:document})
   }
+  
   return (
     <form onSubmit={handleSubmit} className={styles['login-form']}>
     <h2>Login</h2>
