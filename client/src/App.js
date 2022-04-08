@@ -5,6 +5,7 @@ import {BasicForm} from './pages/signup/BasicForm'
 import { useAuthContext } from './hooks/useAuthContext';
 import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom'
 import Navbar from './components/Navbar';
+import Create from './pages/create/Create';
 
 function App() {
   const {isPending,user,authIsReady} = useAuthContext();
@@ -41,6 +42,9 @@ function App() {
           {user  && isPending &&  <Redirect to="/" />}
           
               
+          </Route>
+          <Route to="/create">
+            <Create />
           </Route>
           
         </Switch>
