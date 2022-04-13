@@ -1,29 +1,57 @@
-
-
-import Navbar from './components/Navbar'
-import Home from './pages/home/Home';
+import Home  from './pages/home/Home';
 import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-function App() {
-  return (
-    <div className="App">
+import {BasicForm} from './pages/signup/BasicForm'
+import { useAuthContext } from './hooks/useAuthContext';
+import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom'
+import Navbar from './components/Navbar';
+import Create from './pages/create/Create';
 
-      <BrowserRouter >
+function App() {
+  const {isPending,user,authIsReady} = useAuthContext();
+  console.log("isPending",isPending);
+
+  return (
+    <>
+      {authIsReady && 
+    
+    <div className="App">
+      <BrowserRouter>
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Home />
+            {user  && <Home />}
+            {/* {user  && !isPending && <Redirect to="/BasicForm" />} */}
+            {!user && <Redirect to ="/login" />}
           </Route>
           <Route  path="/login">
-            <Login />
+          {user && isPending &&  <Redirect to ="/"/>}
+          {user && !isPending && <Redirect to = "/basicform" />}
+          {!user && <Login />}
+          
           </Route>
           <Route  path="/signup">
-            <Signup />
+          {user  && !isPending && <Redirect to ="/basicform"/>}
+          {user  && isPending && <Redirect to ="/" />}
+          {!user &&  <Signup />}
+           
           </Route>
+          <Route path ="/basicform">
+          {!user && <Redirect to ="login" />}
+          {(user && !isPending) && <BasicForm />}
+          {user  && isPending &&  <Redirect to="/" />}
+          
+              
+          </Route>
+          <Route to="/create">
+            <Create />
+          </Route>
+          
         </Switch>
       </BrowserRouter>
+     
     </div>
+      }</>
   );
 }
 

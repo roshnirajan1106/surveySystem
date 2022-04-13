@@ -1,0 +1,24 @@
+.transactions div  {
+    margin: 10px auto;
+    border: 1px solid #f2f2f2;
+    box-shadow: 3px 3px 5px rgba(50,50,50,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #1f9751;
+  }
+  .transactions ul{
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+  }
+  .transactions .option{
+      margin-left: 10px;
+  }
+  .transactions .name {
+    color: #777;
+    font-size: 1.4em;
+  }
